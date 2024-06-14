@@ -4,13 +4,12 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { UserAuth } from "../context/AuthContext";
 import { db } from "../firebase";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
-import MoviePage from "../pages/MoviePage";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Movie({ item }) {
   const [like, setLike] = useState(false);
   const [saved, setSaved] = useState(false);
-  const [movieDetails, setMovieDetails] = useState([]);
+  const navigate = useNavigate();
   const { user } = UserAuth();
 
   //referencing db of users, specific user email
@@ -32,26 +31,31 @@ function Movie({ item }) {
     }
   };
 
+  const seeMovieDetails = () => {
+    navigate(`/movie/${item.id}`);
+  };
+
   return (
     <div className="w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2 mb-4">
-      <Link to="/moviepage">
-        <img
-          className="w-full h-auto block rounded-lg"
-          src={`https://image.tmdb.org/t/p/w500/${item.backdrop_path}`}
-          alt={item.title}
-        />
-        <div className="absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100 text-white duration-300">
-          <p className="white-space-normal text-lg font-medium flex justify-center items-center h-full text-center">
-            {item.title}
-          </p>
-          <p
-            className="absolute top-4 left-4 text-gray-300"
-            onClick={saveMovie}
-          >
-            {like ? <FaHeart /> : <FaRegHeart />}
-          </p>
-        </div>
-      </Link>
+      <img
+        className="w-full h-auto block rounded-lg"
+        src={`https://image.tmdb.org/t/p/w500/${item.backdrop_path}`}
+        alt={item.title}
+      />
+      <div className="absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100 text-white duration-300">
+        <p
+          className="white-space-normal text-lg font-medium flex justify-center items-center h-full text-center"
+          onClick={seeMovieDetails}
+        >
+          {item.title}
+        </p>
+        <p
+          className="absolute top-4 left-4 text-gray-300 z-10"
+          onClick={saveMovie}
+        >
+          {like ? <FaHeart /> : <FaRegHeart />}
+        </p>
+      </div>
     </div>
   );
 }

@@ -5,10 +5,12 @@ import { UserAuth } from "../context/AuthContext";
 import { db } from "../firebase";
 import { updateDoc, doc, onSnapshot } from "firebase/firestore";
 import { AiOutlineClose } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 function SavedMovies() {
   const { user } = UserAuth();
   const [movies, setMovies] = useState([]);
+  const navigate = useNavigate();
 
   const slideLeft = () => {
     var slider = document.getElementById("slider");
@@ -44,6 +46,10 @@ function SavedMovies() {
     }
   };
 
+  const seeMovieDetails = (item) => {
+    navigate(`/movie/${item.id}`);
+  };
+
   return (
     <div>
       <h2 className="text-white font-medium md:text-xl p-4">My Movies</h2>
@@ -68,7 +74,10 @@ function SavedMovies() {
               className="w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2"
             >
               <div className="absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100 text-white duration-300">
-                <p className="white-space-normal text-lg font-medium flex justify-center items-center h-full text-center">
+                <p
+                  className="white-space-normal text-lg font-medium flex justify-center items-center h-full text-center"
+                  onClick={() => seeMovieDetails(item)}
+                >
                   {item?.title}
                 </p>
 

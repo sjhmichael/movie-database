@@ -3,8 +3,6 @@ import requests from "../Requests";
 import axios from "axios";
 import { UserAuth } from "../context/AuthContext";
 import { FaPlay, FaArrowRight } from "react-icons/fa6";
-import { Link } from "react-router-dom";
-import MoviePage from "../pages/MoviePage";
 import { useNavigate } from "react-router-dom";
 
 function Main() {
