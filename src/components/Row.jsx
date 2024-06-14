@@ -6,6 +6,7 @@ import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 function Row({ title, fetchURL, rowID }) {
   const [movies, setMovies] = useState([]);
 
+  //get list of movies from URL from and set them in movies
   useEffect(() => {
     axios.get(fetchURL).then((e) => {
       setMovies(e.data.results);
@@ -24,7 +25,7 @@ function Row({ title, fetchURL, rowID }) {
 
   return (
     <div>
-      <h2 className="text-white font-medium md:text-xl p-4">{title}</h2>
+      <h2 className="text-white font-medium md:text-3xl p-4 md:p-8">{title}</h2>
       <div className="relative flex items-center group">
         <FaChevronLeft
           onClick={slideLeft}

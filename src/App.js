@@ -6,6 +6,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Account from "./pages/Account";
 import ProtectedRoute from "./components/ProtectedRoute";
+import MoviePage from "./pages/MoviePage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/movie/:id" element={<MoviePage />} />
           <Route
             path="/account"
             element={
