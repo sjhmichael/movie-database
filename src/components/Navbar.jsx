@@ -16,7 +16,7 @@ function Navbar() {
   };
 
   return (
-    <div className="flex items-center justify-between p-4 z-[100] absolute w-full">
+    <div className="flex items-center justify-between p-4 md:px-8 z-[100] relative w-full bg-black">
       <Link to="/">
         <h1 className="text-red-600 text-4xl font-medium cursor-pointer">
           NETFLIX
