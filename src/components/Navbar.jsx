@@ -16,20 +16,20 @@ function Navbar() {
   };
 
   return (
-    <div className="flex items-center justify-between p-4 md:px-8 z-[100] relative w-full bg-black">
+    <div className="relative z-[100] flex w-full items-center justify-between bg-black p-4 md:px-8">
       <Link to="/">
-        <h1 className="text-red-600 text-4xl font-medium cursor-pointer">
+        <h1 className="cursor-pointer text-4xl font-medium text-red-600">
           NETFLIX
         </h1>
       </Link>
       {user?.email ? (
         <div>
           <Link to="/account">
-            <button className="text-white pr-4">Account</button>
+            <button className="pr-4 text-white">Account</button>
           </Link>
           <button
             onClick={handleLogout}
-            className="bg-red-600 px-6 py-2 rounded-md text-white"
+            className="rounded-md bg-red-600 px-6 py-2 text-white"
           >
             Logout
           </button>
@@ -37,10 +37,10 @@ function Navbar() {
       ) : (
         <div>
           <Link to="/login">
-            <button className="text-white pr-4">Sign In</button>
+            <button className="pr-4 text-white">Sign In</button>
           </Link>
           <Link to="/signup">
-            <button className="bg-red-600 px-6 py-2 rounded-md text-white">
+            <button className="rounded-md bg-red-600 px-6 py-2 text-white">
               Sign Up
             </button>
           </Link>

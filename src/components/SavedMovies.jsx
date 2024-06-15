@@ -52,30 +52,30 @@ function SavedMovies() {
 
   return (
     <div>
-      <h2 className="text-white font-medium md:text-xl p-4">My Movies</h2>
-      <div className="relative flex items-center group">
+      <h2 className="p-4 font-medium text-white md:text-xl">My Movies</h2>
+      <div className="group relative flex items-center">
         <FaChevronLeft
           onClick={slideLeft}
           size={40}
-          className="bg-white rounded-full p-2 left-5 absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block"
+          className="absolute left-5 z-10 hidden cursor-pointer rounded-full bg-white p-2 opacity-50 hover:opacity-100 group-hover:block"
         />
         <FaChevronRight
           onClick={slideRight}
           size={40}
-          className="bg-white p-2 rounded-full right-5 absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block"
+          className="absolute right-5 z-10 hidden cursor-pointer rounded-full bg-white p-2 opacity-50 hover:opacity-100 group-hover:block"
         />
         <div
           id={"slider"}
-          className="w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative"
+          className="relative h-full w-full overflow-x-scroll scroll-smooth whitespace-nowrap scrollbar-hide"
         >
           {movies.map((item, id) => (
             <div
               key={id}
-              className="w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2"
+              className="relative inline-block w-[160px] cursor-pointer p-2 sm:w-[200px] md:w-[240px] lg:w-[280px]"
             >
-              <div className="absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100 text-white duration-300">
+              <div className="absolute left-0 top-0 h-full w-full text-white opacity-0 duration-300 hover:bg-black/80 hover:opacity-100">
                 <p
-                  className="white-space-normal text-lg font-medium flex justify-center items-center h-full text-center"
+                  className="white-space-normal flex h-full items-center justify-center text-center text-lg font-medium"
                   onClick={() => seeMovieDetails(item)}
                 >
                   {item?.title}
@@ -83,13 +83,13 @@ function SavedMovies() {
 
                 {/* pass in movie ID */}
                 <AiOutlineClose
-                  className="absolute text-gray-300 top-4 left-4"
+                  className="absolute left-4 top-4 text-gray-300"
                   fill="white"
                   onClick={() => deleteMovie(item.id)}
                 />
               </div>
               <img
-                className="w-full h-auto block"
+                className="block h-auto w-full"
                 src={`https://image.tmdb.org/t/p/w500/${item?.img}`}
                 alt={item?.title}
               />

@@ -25,21 +25,21 @@ function Row({ title, fetchURL, rowID }) {
 
   return (
     <div>
-      <h2 className="text-white font-medium md:text-3xl p-4 md:p-8">{title}</h2>
-      <div className="relative flex items-center group">
+      <h2 className="p-4 font-medium text-white md:p-8 md:text-3xl">{title}</h2>
+      <div className="group relative flex items-center">
         <FaChevronLeft
           onClick={slideLeft}
           size={40}
-          className="bg-white rounded-full p-2 left-5 absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block"
+          className="absolute left-5 z-10 hidden cursor-pointer rounded-full bg-white p-2 opacity-50 hover:opacity-100 group-hover:block"
         />
         <FaChevronRight
           onClick={slideRight}
           size={40}
-          className="bg-white p-2 rounded-full right-5 absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block"
+          className="absolute right-5 z-10 hidden cursor-pointer rounded-full bg-white p-2 opacity-50 hover:opacity-100 group-hover:block"
         />
         <div
           id={"slider" + rowID}
-          className="w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative"
+          className="relative h-full w-full overflow-x-scroll scroll-smooth whitespace-nowrap scrollbar-hide"
         >
           {movies.map((item, id) => (
             <Movie key={id} item={item} />

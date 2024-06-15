@@ -36,21 +36,21 @@ function Movie({ item }) {
   };
 
   return (
-    <div className="w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2 mb-4">
+    <div className="test relative mb-4 inline-block w-[160px] cursor-pointer p-2 sm:w-[200px] md:w-[240px] lg:w-[280px]">
       <img
-        className="w-full h-auto block rounded-lg"
+        className="block h-auto w-full rounded-lg"
         src={`https://image.tmdb.org/t/p/w500/${item.backdrop_path}`}
         alt={item.title}
       />
-      <div className="absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100 text-white duration-300">
+      <div className="absolute left-0 top-0 h-full w-full text-white opacity-0 duration-300 hover:bg-black/80 hover:opacity-100">
         <p
-          className="white-space-normal text-lg font-medium flex justify-center items-center h-full text-center"
+          className="white-space-normal flex h-full items-center justify-center text-center text-lg font-medium"
           onClick={seeMovieDetails}
         >
           {item.title}
         </p>
         <p
-          className="absolute top-4 left-4 text-gray-300 z-10"
+          className="absolute left-4 top-4 z-10 text-gray-300"
           onClick={saveMovie}
         >
           {like ? <FaHeart /> : <FaRegHeart />}
