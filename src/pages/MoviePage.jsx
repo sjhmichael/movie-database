@@ -4,6 +4,7 @@ import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import requests from "../Requests";
 import clsx from "clsx";
+import { FaChevronRight, FaChevronLeft } from "react-icons/fa6";
 
 function MoviePage() {
   const { state } = useLocation();
@@ -12,18 +13,24 @@ function MoviePage() {
   const [movieDetails, setMovieDetails] = useState([]);
   const [genres, setGenres] = useState([]);
   const [companies, setCompanies] = useState([]);
+  const [videos, setVideos] = useState({});
+  const [credits, setCredits] = useState({});
 
   useEffect(() => {
     axios
-      .get(`https://api.themoviedb.org/3/movie/${id}?api_key=${requests.key}`)
+      .get(
+        `https://api.themoviedb.org/3/movie/${id}?api_key=${requests.key}&append_to_response=videos,images,credits`,
+      )
       .then((response) => {
         setMovieDetails(response.data);
         setGenres(response.data.genres);
         setCompanies(response.data.production_companies);
+        setVideos(response.data.videos.results);
+        setCredits(response.data.credits.cast);
       });
   }, [id, movie]);
 
-  const truncateString = (str, num) => {
+  const arraySlice = (str, num) => {
     if (str?.length > num) {
       return str.slice(0, num);
     } else {
@@ -31,7 +38,18 @@ function MoviePage() {
     }
   };
 
-  console.log(movieDetails);
+  const slideLeft = () => {
+    var slider = document.getElementById("slider");
+    slider.scrollLeft = slider.scrollLeft - 500;
+  };
+
+  const slideRight = () => {
+    var slider = document.getElementById("slider");
+    slider.scrollLeft = slider.scrollLeft + 500;
+  };
+
+  console.log("moviedetails: ", movieDetails);
+  console.log("credits details", credits);
 
   return (
     <div className="relative w-full text-white">
@@ -56,7 +74,7 @@ function MoviePage() {
           <div className="flex flex-row space-x-2">
             {" "}
             <p className="mb-6 text-sm text-gray-300">
-              {truncateString(movieDetails?.release_date, 4)} |
+              {arraySlice(movieDetails?.release_date, 4)} |
             </p>
             <p className="mb-6 text-sm text-gray-300">
               {movieDetails?.runtime} Minutes
@@ -85,7 +103,7 @@ function MoviePage() {
                 alt={movieDetails?.title}
               ></img>
               <div className="flex flex-col">
-                <div className="grid grid-cols-[auto_auto] gap-8 md:grid-cols-[auto_auto_auto]">
+                <div className="grid grid-cols-[auto_auto] gap-8 gap-y-12 md:grid-cols-[auto_auto_auto]">
                   <div className="flex flex-col space-y-2">
                     <h1 className="text-sm text-gray-300">Genres</h1>
                     {genres.length > 0 && (
@@ -104,10 +122,17 @@ function MoviePage() {
                     <h1 className="text-sm text-gray-300">Language</h1>
                     <p className="">{movieDetails?.original_language}</p>
                   </div>
-                  <div className="flex flex-col space-y-2">
-                    <h1 className="text-sm text-gray-300">Status</h1>
-                    <p className="">{movieDetails?.status}</p>
-                  </div>
+                </div>
+                <div className="mt-8 flex flex-col space-y-2">
+                  <h1 className="text-sm text-gray-300">Cast</h1>
+                  {credits.length > 0 && (
+                    <p>
+                      {arraySlice(
+                        credits.map((credits) => credits.name).join(", "),
+                        200,
+                      ) + "..."}
+                    </p>
+                  )}
                 </div>
                 <div className="mt-8 flex flex-col space-y-2">
                   <h1 className="text-sm text-gray-300">Homepage</h1>
@@ -117,16 +142,38 @@ function MoviePage() {
                 </div>
               </div>
             </div>
-            <div className="mt-8 w-full">
-              <h1 className="my-8 text-3xl font-medium">Trailers</h1>
-              <iframe
-                key="uIU0P-unS2E665dba3f1eb7150e422cfd5"
-                src={`https://www.youtube.com/embed/uIU0P-unS2E`}
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                title="Trailer"
-                className="h-[315px] w-full max-w-[560px] lg:h-[315px] lg:w-[560px]"
-              ></iframe>
+
+            <div className="w-full">
+              <div>
+                <h2 className="my-8 text-3xl font-medium">Videos</h2>
+                <div className="group relative flex items-center">
+                  {videos.length > 0 && (
+                    <div
+                      id={"slider"}
+                      className="relative flex h-full w-full flex-row overflow-x-scroll scroll-smooth whitespace-nowrap scrollbar-hide"
+                    >
+                      {arraySlice(
+                        videos.map(
+                          (video) =>
+                            video.site === "YouTube" && (
+                              <iframe
+                                key={video.id}
+                                width="640"
+                                height="200"
+                                src={`https://www.youtube.com/embed/${video.key}`}
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                                title={video.name}
+                                className="h-[315px] w-full max-w-[560px] pr-8 lg:h-[315px] lg:w-[560px]"
+                              ></iframe>
+                            ),
+                        ),
+                        3,
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </div>

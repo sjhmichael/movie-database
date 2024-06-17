@@ -36,7 +36,7 @@ function Movie({ item }) {
   };
 
   return (
-    <div className="test relative mb-4 inline-block w-[160px] cursor-pointer p-2 sm:w-[200px] md:w-[240px] lg:w-[280px]">
+    <div className="relative mb-4 inline-block w-[160px] cursor-pointer p-2 sm:w-[200px] md:w-[240px] lg:w-[280px]">
       <img
         className="block h-auto w-full rounded-lg"
         src={`https://image.tmdb.org/t/p/w500/${item.backdrop_path}`}
