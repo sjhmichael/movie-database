@@ -118,16 +118,16 @@ function MoviePage() {
                     )}
                   </div>
                   <div className="flex flex-col space-y-2">
+                    <h1 className="text-sm text-gray-300">Language</h1>
+                    <p className="">{language}</p>
+                  </div>
+                  <div className="flex flex-col space-y-2">
                     <h1 className="text-sm text-gray-300">Produced By</h1>
                     {companies.length > 0 && (
                       <p>
                         {companies.map((company) => company.name).join(", ")}
                       </p>
                     )}
-                  </div>
-                  <div className="flex flex-col space-y-2">
-                    <h1 className="text-sm text-gray-300">Language</h1>
-                    <p className="">{language}</p>
                   </div>
                 </div>
                 <div className="mt-8 flex flex-col space-y-2">
