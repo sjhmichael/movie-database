@@ -5,6 +5,7 @@ import axios from "axios";
 import requests from "../Requests";
 import clsx from "clsx";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa6";
+import PlayButton from "../components/PlayButton";
 
 function MoviePage() {
   const { state } = useLocation();
@@ -91,36 +92,36 @@ function MoviePage() {
 
             {/* buttons */}
             <div className="my-6 flex flex-row items-center">
-              <button className="rounded-full border bg-white px-8 py-3 text-xl text-black">
-                <div className="flex flex-row items-center gap-x-4 font-medium">
-                  <FaPlay />
-                  Play
-                </div>
-              </button>
+              <PlayButton label={"Play"} />
             </div>
           </div>
 
           {/* Details Section */}
           <div className="mt-[50px] flex w-full flex-col text-white lg:mt-[200px]">
+            {/* more details */}
             <h1 className="text-3xl font-medium">More Details</h1>
             <div className="mt-4 flex flex-row md:space-x-8">
+              {/* image */}
               <img
                 className="relative hidden size-1/6 md:block"
                 src={`https://image.tmdb.org/t/p/original/${movieDetails?.poster_path}`}
                 alt={movieDetails?.title}
               ></img>
-              <div className="flex flex-col">
-                <div className="grid grid-cols-[auto_auto] gap-8 gap-y-12 md:grid-cols-[auto_auto_auto]">
+              {/* movie details */}
+              <div className="flex w-full flex-col">
+                <div className="grid grid-cols-[auto] gap-8 gap-y-12 md:grid-cols-[auto_auto] lg:grid-cols-[auto_auto_auto]">
                   <div className="flex flex-col space-y-2">
                     <h1 className="text-sm text-gray-300">Genres</h1>
                     {genres.length > 0 && (
                       <p>{genres.map((genre) => genre.name).join(" | ")}</p>
                     )}
                   </div>
+                  {/* language */}
                   <div className="flex flex-col space-y-2">
                     <h1 className="text-sm text-gray-300">Language</h1>
                     <p className="">{language}</p>
                   </div>
+                  {/* produced by */}
                   <div className="flex flex-col space-y-2">
                     <h1 className="text-sm text-gray-300">Produced By</h1>
                     {companies.length > 0 && (
@@ -130,16 +131,22 @@ function MoviePage() {
                     )}
                   </div>
                 </div>
+                {/* cast */}
                 <div className="mt-8 flex flex-col space-y-2">
                   <h1 className="text-sm text-gray-300">Cast</h1>
-                  <p>
+                  <div className="mt-8 grid grid-cols-[auto_auto] flex-col gap-4 gap-y-0 md:grid-cols-[auto_auto_auto] lg:grid-cols-[auto_auto_auto_auto_auto]">
                     {credits.length > 0 &&
                       arraySlice(
-                        credits.map((credits) => credits.name),
-                        20,
-                      ).join(", ")}
-                  </p>
+                        credits.map((credits) => (
+                          <div className="">
+                            <p>{credits.name}</p>
+                          </div>
+                        )),
+                        15,
+                      )}
+                  </div>
                 </div>
+                {/* homepage */}
                 <div className="mt-8 flex flex-col space-y-2">
                   <h1 className="text-sm text-gray-300">Homepage</h1>
                   <p>{movieDetails?.homepage ? movieDetails?.homepage : "-"}</p>

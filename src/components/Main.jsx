@@ -4,6 +4,7 @@ import axios from "axios";
 import { UserAuth } from "../context/AuthContext";
 import { FaPlay, FaArrowRight } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import PlayButton from "./PlayButton";
 
 function Main() {
   const { user } = UserAuth();
@@ -32,48 +33,40 @@ function Main() {
   };
 
   return (
-    <div className="w-full h-[650px] text-white">
-      <div className="w-full h-full">
-        <div className="absolute w-full h-[650px] bg-gradient-to-t from-black"></div>
+    <div className="h-[650px] w-full text-white">
+      <div className="h-full w-full">
+        <div className="absolute h-[650px] w-full bg-gradient-to-t from-black"></div>
         {/* movie?.title is for optional chanining */}
         <img
-          className="w-full h-full object-cover"
+          className="h-full w-full object-cover"
           src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
           alt={movie?.title}
         ></img>
-        <div className="absolute w-full top-[250px] p-4 md:p-8">
-          {/* <p className="text-gray-300 text-sm mb-6">
-            Released: {movie?.release_date}
-          </p> */}
+        <div className="absolute top-[250px] w-full p-4 md:p-8">
           <div className="flex flex-row space-x-4">
-            <h1 className="bg-gray-400/30 text-white px-4 py-2 rounded-full w-fit">
+            <h1 className="w-fit rounded-full bg-gray-400/30 px-4 py-2 text-white">
               Popular
             </h1>
-            <h1 className=" bg-gray-400/30 text-white px-4 py-2 rounded-full w-fit">
+            <h1 className="w-fit rounded-full bg-gray-400/30 px-4 py-2 text-white">
               New Movie
             </h1>
           </div>
-          <h1 className="text-3xl md:text-7xl font-medium mt-6">
+          <h1 className="mt-6 text-3xl font-medium md:text-7xl">
             {movie?.title}
           </h1>
-          <p className="md:w-[600px] w-[350px] md:text-base text-sm text-balance text-gray-200 mt-6">
+          <p className="mt-6 w-[350px] text-balance text-sm text-gray-200 md:w-[600px] md:text-base">
             {truncateString(movie?.overview, 200)}
           </p>
           {/* buttons */}
           <div className="my-6 flex flex-row items-center">
-            <button className="text-xl border rounded-full bg-white text-black py-3 px-8">
-              <div className="font-medium flex flex-row gap-x-4 items-center">
-                <FaPlay />
-                Play
-              </div>
-            </button>
+            <PlayButton label={"Play"} />
             <button
-              className="text-xl border rounded-full text-white ml-4 border-gray-600 py-3 px-8"
+              className="group ml-4 rounded-full border border-gray-600 px-8 py-3 text-xl text-white"
               onClick={seeMovieDetails}
             >
-              <div className="flex flex-row gap-x-4 items-center">
+              <div className="flex flex-row items-center gap-x-4">
                 More Info
-                <FaArrowRight />
+                <FaArrowRight className="duration-300 group-hover:translate-x-2" />
               </div>
             </button>
           </div>
