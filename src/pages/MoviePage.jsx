@@ -53,7 +53,7 @@ function MoviePage() {
     slider.scrollLeft = slider.scrollLeft + 500;
   };
 
-  console.log("moviedetails: ", movieDetails);
+  console.log(movie);
 
   return (
     <div className="relative w-full text-white">
@@ -101,12 +101,13 @@ function MoviePage() {
             {/* more details */}
             <h1 className="text-3xl font-medium">More Details</h1>
             <div className="mt-4 flex flex-row md:space-x-8">
-              {/* image */}
+              {/* poster */}
               <img
                 className="relative hidden size-1/6 md:block"
                 src={`https://image.tmdb.org/t/p/original/${movieDetails?.poster_path}`}
                 alt={movieDetails?.title}
               ></img>
+
               {/* movie details */}
               <div className="flex w-full flex-col">
                 <div className="grid grid-cols-[auto] gap-8 gap-y-12 md:grid-cols-[auto_auto] lg:grid-cols-[auto_auto_auto]">
@@ -116,11 +117,13 @@ function MoviePage() {
                       <p>{genres.map((genre) => genre.name).join(" | ")}</p>
                     )}
                   </div>
+
                   {/* language */}
                   <div className="flex flex-col space-y-2">
                     <h1 className="text-sm text-gray-300">Language</h1>
                     <p className="">{language}</p>
                   </div>
+
                   {/* produced by */}
                   <div className="flex flex-col space-y-2">
                     <h1 className="text-sm text-gray-300">Produced By</h1>
@@ -131,6 +134,7 @@ function MoviePage() {
                     )}
                   </div>
                 </div>
+
                 {/* cast */}
                 <div className="mt-8 flex flex-col space-y-2">
                   <h1 className="text-sm text-gray-300">Cast</h1>
@@ -146,6 +150,7 @@ function MoviePage() {
                       )}
                   </div>
                 </div>
+
                 {/* homepage */}
                 <div className="mt-8 flex flex-col space-y-2">
                   <h1 className="text-sm text-gray-300">Homepage</h1>
@@ -155,7 +160,6 @@ function MoviePage() {
             </div>
 
             {/* Videos section */}
-
             <div className="w-full">
               <h2 className="mb-4 mt-16 text-3xl font-medium">
                 Videos:{" "}

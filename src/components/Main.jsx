@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import PlayButton from "./PlayButton";
 
 function Main() {
-  const { user } = UserAuth();
   const [movies, setMovies] = useState([]);
   const navigate = useNavigate();
 
