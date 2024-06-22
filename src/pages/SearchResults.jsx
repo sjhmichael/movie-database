@@ -34,8 +34,8 @@ function SearchResults() {
   } else {
     return (
       <div>
-        <div className="mt-10 flex w-full flex-col items-center align-middle text-white">
-          <div className="max-w-[1400px] px-4 md:px-8">
+        <div className="flex w-full flex-col items-center align-middle text-white">
+          <div className="mt-24 max-w-[1400px] px-4 md:px-8">
             {results.map((result) => (
               <div key={result.id}>
                 <div className="mb-16">

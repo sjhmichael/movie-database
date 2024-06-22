@@ -30,7 +30,7 @@ function Navbar() {
   };
 
   return (
-    <div className="z-[100] w-full">
+    <div className="fixed z-[100] w-full">
       <div className="flex items-center justify-between bg-black">
         <Link to="/">
           <h1 className="cursor-pointer py-3 pl-4 text-4xl font-medium text-red-600 md:pl-8">
@@ -98,7 +98,7 @@ function Navbar() {
           <div>
             <div className="flex flex-row items-center py-3 pr-4 md:pr-8">
               <FaSearch
-                className="block fill-white hover:cursor-pointer md:hidden"
+                className="mr-4 block fill-white hover:cursor-pointer md:hidden"
                 size={24}
                 onClick={hideSearch}
               />

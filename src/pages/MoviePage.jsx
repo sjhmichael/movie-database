@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaPlay } from "react-icons/fa6";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import requests from "../Requests";
 import clsx from "clsx";
@@ -8,6 +7,7 @@ import { FaChevronRight, FaChevronLeft } from "react-icons/fa6";
 import PlayButton from "../components/PlayButton";
 
 function MoviePage() {
+  const navigate = useNavigate();
   const { state } = useLocation();
   const { id } = useParams();
   const movie = state?.movie;
@@ -53,7 +53,11 @@ function MoviePage() {
     slider.scrollLeft = slider.scrollLeft + 500;
   };
 
-  console.log(movie);
+  const seeMovieDetails = (id) => {
+    navigate(`/movie/${id}`, { state: { id } });
+  };
+
+  console.log("similar", similar);
 
   return (
     <div className="relative w-full text-white">
@@ -201,11 +205,14 @@ function MoviePage() {
               <h2 className="mb-4 mt-16 text-3xl font-medium">Similar</h2>
               <div className="grid grid-cols-[auto_auto] flex-wrap gap-4 md:grid-cols-[auto_auto_auto_auto]">
                 {similar.map((similar) => (
-                  <img
-                    className="max-h-[196px] w-full rounded-lg object-cover"
-                    src={`https://image.tmdb.org/t/p/w500/${similar.poster_path}`}
-                    alt={similar.original_title}
-                  />
+                  <div className="">
+                    <img
+                      className="max-h-[196px] w-full rounded-lg object-cover duration-300 hover:scale-95 hover:cursor-pointer"
+                      onClick={() => seeMovieDetails(similar.id)}
+                      src={`https://image.tmdb.org/t/p/w500/${similar.poster_path}`}
+                      alt={similar.original_title}
+                    />
+                  </div>
                 ))}
               </div>
             </div>

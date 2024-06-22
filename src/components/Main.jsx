@@ -50,7 +50,7 @@ function Main() {
               New Movie
             </h1>
           </div>
-          <h1 className="mt-6 text-3xl font-medium md:text-7xl">
+          <h1 className="mt-6 text-3xl font-medium lg:text-6xl">
             {movie?.title}
           </h1>
           <p className="mt-6 w-[350px] text-balance text-sm text-gray-200 md:w-[600px] md:text-base">
