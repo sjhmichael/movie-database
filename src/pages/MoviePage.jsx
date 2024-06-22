@@ -121,7 +121,7 @@ function MoviePage() {
                   {/* language */}
                   <div className="flex flex-col space-y-2">
                     <h1 className="text-sm text-gray-300">Language</h1>
-                    <p className="">{language}</p>
+                    <p className="">{language ? language : "-"}</p>
                   </div>
 
                   {/* produced by */}
