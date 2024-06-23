@@ -5,6 +5,7 @@ import { UserAuth } from "../context/AuthContext";
 import { FaPlay, FaArrowRight } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import PlayButton from "./PlayButton";
+import Truncate from "./Truncate";
 
 function Main() {
   const [movies, setMovies] = useState([]);

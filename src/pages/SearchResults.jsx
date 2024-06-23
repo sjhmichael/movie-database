@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import requests from "../Requests";
 import { useNavigate } from "react-router-dom";
+import Truncate from "../components/Truncate";
 
 function SearchResults() {
   const navigate = useNavigate();
@@ -27,8 +28,10 @@ function SearchResults() {
 
   if (results.length === 0) {
     return (
-      <div className="mt-[350px] flex w-full flex-col items-center align-middle text-4xl font-medium text-white">
-        No Results found!
+      <div className="flex w-full flex-col items-center align-middle text-white">
+        <div className="mt-[350px]">
+          <h1 className="text-4xl font-medium">No results found!</h1>
+        </div>
       </div>
     );
   } else {
@@ -50,8 +53,11 @@ function SearchResults() {
                     ></img>
                     <div className="space-y-2">
                       <h1 className="text-2xl font-medium">{result.title}</h1>
-                      <p className="text-sm text-gray-400">
-                        {result.release_date}
+                      <p className="">
+                        <Truncate
+                          str={result.release_date ? result.release_date : "-"}
+                          num={4}
+                        />
                       </p>
                       <p className="text-sm text-gray-400">{result.overview}</p>
                     </div>

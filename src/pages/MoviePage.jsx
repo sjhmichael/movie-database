@@ -5,6 +5,7 @@ import requests from "../Requests";
 import clsx from "clsx";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa6";
 import PlayButton from "../components/PlayButton";
+import Truncate from "../components/Truncate";
 
 function MoviePage() {
   const navigate = useNavigate();
@@ -57,8 +58,6 @@ function MoviePage() {
     navigate(`/movie/${id}`, { state: { id } });
   };
 
-  console.log("similar", similar);
-
   return (
     <div className="relative w-full text-white">
       {/* movie?.title is for optional chanining */}
@@ -84,16 +83,13 @@ function MoviePage() {
             <div className="flex flex-row space-x-2">
               {" "}
               <p className="mb-6 text-sm text-gray-300">
-                {arraySlice(movieDetails?.release_date, 4)} |
-              </p>
-              <p className="mb-6 text-sm text-gray-300">
+                <Truncate str={movieDetails?.release_date} num={4} /> |{" "}
                 {movieDetails?.runtime} Minutes
               </p>
             </div>
             <p className="text-balance text-sm text-gray-300 md:text-base">
               {movieDetails?.overview}
             </p>
-
             {/* buttons */}
             <div className="my-6 flex flex-row items-center">
               <PlayButton label={"Play"} />

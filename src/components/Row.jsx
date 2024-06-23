@@ -25,7 +25,7 @@ function Row({ title, fetchURL, rowID }) {
 
   return (
     <div>
-      <h2 className="mx-8 mb-4 text-2xl font-medium text-white md:text-3xl">
+      <h2 className="mx-4 mb-4 text-2xl font-medium text-white md:mx-8 md:text-3xl">
         {title}
       </h2>
       <div className="group relative flex items-center">

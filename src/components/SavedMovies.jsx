@@ -51,8 +51,10 @@ function SavedMovies() {
   };
 
   return (
-    <div>
-      <h2 className="p-4 font-medium text-white md:text-xl">My Movies</h2>
+    <div className="">
+      <h2 className="mx-4 mb-4 text-2xl font-medium text-white md:mx-8 md:text-3xl">
+        Saved Movies
+      </h2>
       <div className="group relative flex items-center">
         <FaChevronLeft
           onClick={slideLeft}
@@ -89,7 +91,7 @@ function SavedMovies() {
                 />
               </div>
               <img
-                className="block h-auto w-full"
+                className="block h-auto w-full rounded-lg"
                 src={`https://image.tmdb.org/t/p/w500/${item?.img}`}
                 alt={item?.title}
               />

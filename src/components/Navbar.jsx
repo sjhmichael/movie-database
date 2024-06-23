@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { UserAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { FaSearch, FaArrowLeft } from "react-icons/fa";
+import Truncate from "./Truncate";
 
 function Navbar() {
   const { user, logOut } = UserAuth();
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [search, setSearch] = useState();
+  const [profile, setProfile] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -23,6 +25,10 @@ function Navbar() {
     navigate(`/searchresults/${query}`, { state: { query } });
     setQuery("");
     setSearch(false);
+  };
+
+  const seeProfile = () => {
+    setProfile(!profile);
   };
 
   const hideSearch = () => {
@@ -83,15 +89,40 @@ function Navbar() {
               onClick={hideSearch}
             />
             <div className="">
-              <Link to="/account">
-                <button className="pr-4 text-white">Account</button>
-              </Link>
+              {/* Profile Icon */}
               <button
-                onClick={handleLogout}
-                className="rounded-md bg-red-600 px-6 py-2 text-white"
+                className="h-9 w-9 items-center rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-xl text-white"
+                onClick={seeProfile}
               >
-                Logout
+                <Truncate str={user.email.toUpperCase()} num={1} />
               </button>
+
+              {/* floating acc details */}
+              <div
+                className={
+                  profile
+                    ? "absolute right-4 top-14 rounded-lg bg-gray-950 p-4 text-white"
+                    : "absolute right-4 top-14 hidden rounded-lg bg-gray-950 p-4 text-white"
+                }
+              >
+                <div className="flex flex-col space-y-4">
+                  <h1>{user.email}</h1>
+                  <Link to="/account" className="w-full">
+                    <button
+                      className="w-full rounded-lg border-[1px] border-gray-600 px-6 py-2"
+                      onClick={seeProfile}
+                    >
+                      Saved Movies
+                    </button>
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="rounded-md bg-red-600 px-6 py-2"
+                  >
+                    Logout
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         ) : (
@@ -103,11 +134,11 @@ function Navbar() {
                 onClick={hideSearch}
               />
               <Link to="/login">
-                <button className="pr-4 text-white">Sign In</button>
-              </Link>
-              <Link to="/signup">
-                <button className="rounded-md bg-red-600 px-6 py-2 text-white">
-                  Sign Up
+                <button
+                  className="rounded-md bg-red-600 px-6 py-2 text-white"
+                  onClick={seeProfile}
+                >
+                  Sign In
                 </button>
               </Link>
             </div>
