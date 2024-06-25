@@ -8,6 +8,7 @@ import Account from "./pages/Account";
 import ProtectedRoute from "./components/ProtectedRoute";
 import MoviePage from "./pages/MoviePage";
 import SearchResults from "./pages/SearchResults";
+import Footer from "./components/Footer";
 
 function App() {
   return (

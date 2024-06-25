@@ -3,6 +3,7 @@ import { UserAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { FaSearch, FaArrowLeft } from "react-icons/fa";
 import Truncate from "./Truncate";
+import AppLogo from "./AppLogo";
 
 function Navbar() {
   const { user, logOut } = UserAuth();
@@ -38,11 +39,7 @@ function Navbar() {
   return (
     <div className="fixed z-[100] w-full">
       <div className="flex items-center justify-between bg-black">
-        <Link to="/">
-          <h1 className="cursor-pointer py-3 pl-4 text-4xl font-medium text-red-600 md:pl-8">
-            NETFLIX
-          </h1>
-        </Link>
+        <AppLogo />
         {/* search */}
         <form className="hidden text-white md:block" onSubmit={handleSubmit}>
           <input
@@ -112,7 +109,7 @@ function Navbar() {
                       className="w-full rounded-lg border-[1px] border-gray-600 px-6 py-2"
                       onClick={seeProfile}
                     >
-                      Saved Movies
+                      Account
                     </button>
                   </Link>
                   <button

@@ -2,13 +2,25 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import requests from "../Requests";
-import clsx from "clsx";
-import { FaChevronRight, FaChevronLeft } from "react-icons/fa6";
+import { db } from "../firebase";
+import {
+  FaChevronRight,
+  FaChevronLeft,
+  FaHeart,
+  FaRegHeart,
+} from "react-icons/fa6";
 import PlayButton from "../components/PlayButton";
 import Truncate from "../components/Truncate";
+import { UserAuth } from "../context/AuthContext";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import AppLogo from "../components/AppLogo";
+import Footer from "../components/Footer";
 
 function MoviePage() {
   const navigate = useNavigate();
+  const { user } = UserAuth();
+  const [like, setLike] = useState(false);
+  const [saved, setSaved] = useState(false);
   const { state } = useLocation();
   const { id } = useParams();
   const movie = state?.movie;
@@ -58,6 +70,25 @@ function MoviePage() {
     navigate(`/movie/${id}`, { state: { id } });
   };
 
+  //referencing db of users, specific user email
+  const movieID = doc(db, "users", `${user?.email}`);
+
+  const saveMovie = async (item) => {
+    if (user?.email) {
+      setLike(!like);
+      setSaved(true);
+      await updateDoc(movieID, {
+        savedMovies: arrayUnion({
+          id: item.id,
+          title: item.title,
+          img: item.backdrop_path,
+        }),
+      });
+    } else {
+      alert("Please log in to save a movie");
+    }
+  };
+
   return (
     <div className="relative w-full text-white">
       {/* movie?.title is for optional chanining */}
@@ -76,7 +107,7 @@ function MoviePage() {
       <div className="absolute top-[250px] z-20 h-full w-full p-4 md:p-8">
         <div className="relative left-0 right-0 mx-auto max-w-[1400px]">
           {/* Overview section */}
-          <div className="min-h-[250px]">
+          <div className="min-h-[250ox] lg:h-[250px]">
             <h1 className="my-8 text-3xl font-medium md:text-5xl">
               {movieDetails.title}
             </h1>
@@ -91,8 +122,21 @@ function MoviePage() {
               {movieDetails?.overview}
             </p>
             {/* buttons */}
-            <div className="my-6 flex flex-row items-center">
+            <div className="mt-6 flex flex-row space-x-4">
               <PlayButton label={"Play"} />
+              <button className="group rounded-full border border-gray-600 px-8 py-3 text-xl text-white">
+                <button
+                  className="group flex flex-row items-center gap-x-4"
+                  onClick={() => saveMovie(movieDetails)}
+                >
+                  Favourite
+                  {like ? (
+                    <FaHeart className="duration-300 group-hover:size-6" />
+                  ) : (
+                    <FaRegHeart className="duration-300 group-hover:size-6" />
+                  )}
+                </button>
+              </button>
             </div>
           </div>
 
@@ -212,6 +256,7 @@ function MoviePage() {
                 ))}
               </div>
             </div>
+            <Footer />
           </div>
         </div>
       </div>
