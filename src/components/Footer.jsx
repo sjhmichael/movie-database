@@ -9,13 +9,13 @@ import {
 
 function Footer() {
   return (
-    <div className="relative z-[100] mb-8 mt-24 flex w-full justify-center text-white">
+    <div className="relative z-10 mb-8 mt-24 flex w-full justify-center text-white">
       <div className="flex w-full max-w-[1400px] flex-col space-y-8">
         <div className="w-full border-t-[1px] border-gray-700" />
         <div className="flex flex-col justify-between space-y-16 lg:flex-row">
           <div className="mr-16 flex flex-col space-y-8">
-            <h1 className="cursor-pointer text-4xl font-medium text-red-600">
-              NETFLIX
+            <h1 className="font-comfortaa cursor-pointer text-3xl font-extrabold text-red-600">
+              movies.db
             </h1>
             <p>Connecting the world through entertainment.</p>
             <li className="flex flex-row space-x-8">
