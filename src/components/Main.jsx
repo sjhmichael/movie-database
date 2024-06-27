@@ -17,9 +17,20 @@ function Main() {
   gsap.registerPlugin(useGSAP);
 
   useEffect(() => {
-    axios.get(requests.requestPopular).then((e) => {
-      setMovies(e.data.results);
-    });
+    const fetchMovies = () => {
+      axios.get(requests.requestPopular).then((response) => {
+        setMovies(response.data.results);
+      });
+    };
+
+    //initial fetch
+    fetchMovies();
+
+    //set interval to refresh movies every 60 seconds
+    const intervalId = setInterval(fetchMovies, 60000);
+
+    //cleanup interval on component unmount
+    return () => clearInterval(intervalId);
   }, []);
 
   //get a random movie from the array movies
@@ -37,29 +48,32 @@ function Main() {
     navigate(`/movie/${movie.id}`, { state: { movie } });
   };
 
-  useGSAP(() => {
-    const tl = gsap.timeline({ defaults: { ease: "power2.inOut" } });
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({ defaults: { ease: "power2.inOut" } });
 
-    tl.fromTo(
-      ".hero__image",
-      { opacity: 0, scale: 0.8 },
-      { scale: 1, opacity: 1, duration: 1 },
-    );
+      tl.fromTo(
+        ".hero__image",
+        { opacity: 0, scale: 0.8 },
+        { scale: 1, opacity: 1, duration: 1 },
+      );
 
-    tl.fromTo(
-      ".movie__details",
-      { y: 20 },
-      { y: 0, opacity: 1, duration: 1 },
-      "-0.2",
-    );
+      tl.fromTo(
+        ".movie__details",
+        { y: 20 },
+        { y: 0, opacity: 1, duration: 1 },
+        "-0.2",
+      );
 
-    tl.fromTo(
-      ".movie__buttons",
-      { x: -20 },
-      { x: 0, opacity: 1, duration: 1 },
-      "+0.2",
-    );
-  });
+      tl.fromTo(
+        ".movie__buttons",
+        { x: -20 },
+        { x: 0, opacity: 1, duration: 1 },
+        "+0.2",
+      );
+    },
+    { scope: container },
+  );
 
   return (
     <div className="h-[650px] w-full text-white" ref={container}>
@@ -77,7 +91,7 @@ function Main() {
               Popular
             </h1>
             <h1 className="w-fit rounded-full bg-gray-400/30 px-4 py-2 text-white">
-              New Movie
+              Featured
             </h1>
           </div>
           <h1 className="mt-6 text-3xl font-medium lg:text-6xl">
