@@ -10,7 +10,6 @@ import {
   FaRegHeart,
 } from "react-icons/fa6";
 import PlayButton from "../components/PlayButton";
-import Truncate from "../components/Truncate";
 import { UserAuth } from "../context/AuthContext";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import AppLogo from "../components/AppLogo";
@@ -49,6 +48,14 @@ function MoviePage() {
   }, [id, movie]);
 
   const arraySlice = (str, num) => {
+    if (str?.length > num) {
+      return str.slice(0, num);
+    } else {
+      return str;
+    }
+  };
+
+  const truncateString = (str, num) => {
     if (str?.length > num) {
       return str.slice(0, num);
     } else {
@@ -114,7 +121,7 @@ function MoviePage() {
             <div className="flex flex-row space-x-2">
               {" "}
               <p className="mb-6 text-sm text-gray-300">
-                <Truncate str={movieDetails?.release_date} num={4} /> |{" "}
+                {truncateString(movie?.release_date, 4)} |{" "}
                 {movieDetails?.runtime} Minutes
               </p>
             </div>

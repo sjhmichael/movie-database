@@ -59,7 +59,13 @@ function SearchResults() {
                           num={4}
                         />
                       </p>
-                      <p className="text-sm text-gray-400">{result.overview}</p>
+                      <p className="text-sm text-gray-400">
+                        {result.overview ? (
+                          <Truncate str={result.overview} num={300} />
+                        ) : (
+                          "NA"
+                        )}
+                      </p>
                     </div>
                   </div>
                 </div>
