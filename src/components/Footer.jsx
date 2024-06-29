@@ -66,7 +66,7 @@ function Footer() {
         </div>
         <div className="w-full border-t-[1px] border-gray-700" />
         <h1 className="text-sm text-gray-500">
-          © 2024 Netflix, Inc. All rights reserved.
+          © 2024 movie.db, Inc. All rights reserved.
         </h1>
       </div>
     </div>
