@@ -44,7 +44,7 @@ function Movie({ item }) {
       />
       <div className="absolute left-0 top-0 h-full w-full text-white opacity-0 duration-300 hover:bg-black/80 hover:opacity-100">
         <p
-          className="white-space-normal flex h-full items-center justify-center text-center text-lg font-medium"
+          className="hidden h-full w-full items-center justify-center px-12 text-center duration-300 group-hover:flex"
           onClick={seeMovieDetails}
         >
           {item.title}

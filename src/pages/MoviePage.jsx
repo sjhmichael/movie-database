@@ -15,6 +15,7 @@ import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import Footer from "../components/Footer";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import SimilarMovies from "../components/SimilarMovies";
 
 function MoviePage() {
   const navigate = useNavigate();
@@ -103,6 +104,44 @@ function MoviePage() {
     const tl = gsap.timeline({ defaults: { ease: "power2.inOut" } });
 
     tl.fromTo(".hero__image", { x: -30 }, { x: 0, opacity: 1, duration: 1 });
+
+    tl.fromTo(
+      ".hero__overview",
+      { y: 20 },
+      { y: 0, opacity: 1, duration: 0.9 },
+      "=-0.4",
+    );
+
+    tl.fromTo(
+      ".hero__buttons",
+      { x: -30 },
+      { x: 0, opacity: 1, duration: 0.9 },
+      "=-0.2",
+    );
+
+    tl.fromTo(
+      ".movie__details",
+      { y: 30 },
+      { y: 0, opacity: 1, duration: 0.9 },
+      "=-0.4",
+    );
+
+    tl.fromTo(
+      ".videos__section",
+      { y: 30 },
+      { y: 0, opacity: 1, duration: 0.9 },
+      "=-0.4",
+    );
+
+    tl.fromTo(
+      ".similar__movies",
+      { y: 30 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.9,
+      },
+    );
   });
 
   return (
@@ -123,22 +162,24 @@ function MoviePage() {
       <div className="absolute top-[250px] z-20 h-full w-full p-4 md:p-8">
         <div className="relative left-0 right-0 mx-auto max-w-[1400px]">
           {/* Overview section */}
-          <div className="min-h-[250ox] lg:h-[250px]">
-            <h1 className="my-8 text-3xl font-medium md:text-5xl">
-              {movieDetails.title}
-            </h1>
-            <div className="flex flex-row space-x-2">
-              {" "}
-              <p className="mb-6 text-sm text-gray-300">
-                {truncateString(movie?.release_date, 4)} |{" "}
-                {movieDetails?.runtime} Minutes
+          <div className="min-h-[250ox] lg:h-[260px]">
+            <div className="hero__overview opacity-0">
+              <h1 className="my-8 text-3xl font-medium md:text-5xl">
+                {movieDetails.title}
+              </h1>
+              <div className="flex flex-row space-x-2">
+                {" "}
+                <p className="mb-6 text-sm text-gray-300">
+                  {truncateString(movieDetails?.release_date, 4)} |{" "}
+                  {movieDetails?.runtime} Minutes
+                </p>
+              </div>
+              <p className="text-balance text-sm text-gray-300 md:text-base">
+                {movieDetails?.overview}
               </p>
             </div>
-            <p className="text-balance text-sm text-gray-300 md:text-base">
-              {movieDetails?.overview}
-            </p>
             {/* buttons */}
-            <div className="mt-6 flex flex-row space-x-4">
+            <div className="hero__buttons mt-6 flex flex-row space-x-4 opacity-0">
               <PlayButton label={"Play"} />
               <button className="group rounded-full border border-gray-600 px-8 py-3 text-xl text-white">
                 <button
@@ -159,68 +200,72 @@ function MoviePage() {
           {/* Details Section */}
           <div className="mt-[50px] flex w-full flex-col text-white lg:mt-[200px]">
             {/* more details */}
-            <h1 className="text-3xl font-medium">More Details</h1>
-            <div className="mt-4 flex flex-row md:space-x-8">
-              {/* poster */}
-              <img
-                className="relative hidden size-1/6 md:block"
-                src={`https://image.tmdb.org/t/p/original/${movieDetails?.poster_path}`}
-                alt={movieDetails?.title}
-              ></img>
+            <div className="movie__details opacity-0">
+              <h1 className="text-3xl font-medium">More Details</h1>
+              <div className="mt-4 flex flex-row md:space-x-8">
+                {/* poster */}
+                <img
+                  className="relative hidden size-1/6 md:block"
+                  src={`https://image.tmdb.org/t/p/original/${movieDetails?.poster_path}`}
+                  alt={movieDetails?.title}
+                ></img>
 
-              {/* movie details */}
-              <div className="flex w-full flex-col">
-                <div className="grid grid-cols-[auto] gap-8 gap-y-12 md:grid-cols-[auto_auto] lg:grid-cols-[auto_auto_auto]">
-                  <div className="flex flex-col space-y-2">
-                    <h1 className="text-sm text-gray-300">Genres</h1>
-                    {genres.length > 0 && (
-                      <p>{genres.map((genre) => genre.name).join(" | ")}</p>
-                    )}
-                  </div>
-
-                  {/* language */}
-                  <div className="flex flex-col space-y-2">
-                    <h1 className="text-sm text-gray-300">Language</h1>
-                    <p className="">{language ? language : "-"}</p>
-                  </div>
-
-                  {/* produced by */}
-                  <div className="flex flex-col space-y-2">
-                    <h1 className="text-sm text-gray-300">Produced By</h1>
-                    {companies.length > 0 && (
-                      <p>
-                        {companies.map((company) => company.name).join(", ")}
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                {/* cast */}
-                <div className="mt-8 flex flex-col space-y-2">
-                  <h1 className="text-sm text-gray-300">Cast</h1>
-                  <div className="mt-8 grid grid-cols-[auto_auto] flex-col gap-4 gap-y-0 md:grid-cols-[auto_auto_auto] lg:grid-cols-[auto_auto_auto_auto_auto]">
-                    {credits.length > 0 &&
-                      arraySlice(
-                        credits.map((credits) => (
-                          <div className="">
-                            <p>{credits.name}</p>
-                          </div>
-                        )),
-                        15,
+                {/* movie details */}
+                <div className="flex w-full flex-col">
+                  <div className="grid grid-cols-[auto] gap-8 gap-y-12 md:grid-cols-[auto_auto] lg:grid-cols-[auto_auto_auto]">
+                    <div className="flex flex-col space-y-2">
+                      <h1 className="text-sm text-gray-300">Genres</h1>
+                      {genres.length > 0 && (
+                        <p>{genres.map((genre) => genre.name).join(" | ")}</p>
                       )}
-                  </div>
-                </div>
+                    </div>
 
-                {/* homepage */}
-                <div className="mt-8 flex flex-col space-y-2">
-                  <h1 className="text-sm text-gray-300">Homepage</h1>
-                  <p>{movieDetails?.homepage ? movieDetails?.homepage : "-"}</p>
+                    {/* language */}
+                    <div className="flex flex-col space-y-2">
+                      <h1 className="text-sm text-gray-300">Language</h1>
+                      <p className="">{language ? language : "-"}</p>
+                    </div>
+
+                    {/* produced by */}
+                    <div className="flex flex-col space-y-2">
+                      <h1 className="text-sm text-gray-300">Produced By</h1>
+                      {companies.length > 0 && (
+                        <p>
+                          {companies.map((company) => company.name).join(", ")}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* cast */}
+                  <div className="mt-8 flex flex-col space-y-2">
+                    <h1 className="text-sm text-gray-300">Cast</h1>
+                    <div className="mt-8 grid grid-cols-[auto_auto] flex-col gap-4 gap-y-0 md:grid-cols-[auto_auto_auto] lg:grid-cols-[auto_auto_auto_auto_auto]">
+                      {credits.length > 0 &&
+                        arraySlice(
+                          credits.map((credits) => (
+                            <div className="">
+                              <p>{credits.name}</p>
+                            </div>
+                          )),
+                          15,
+                        )}
+                    </div>
+                  </div>
+
+                  {/* homepage */}
+                  <div className="mt-8 flex flex-col space-y-2">
+                    <h1 className="text-sm text-gray-300">Homepage</h1>
+                    <p>
+                      {movieDetails?.homepage ? movieDetails?.homepage : "-"}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Videos section */}
-            <div className="w-full">
+            <div className="videos__section w-full opacity-0">
               <h2 className="mb-4 mt-16 text-3xl font-medium">
                 Videos:{" "}
                 <span className="font-normal text-gray-400">
@@ -257,18 +302,19 @@ function MoviePage() {
             </div>
 
             {/* Similar */}
-            <div className="w-full">
+            <div className="similar__movies w-full opacity-0">
               <h2 className="mb-4 mt-16 text-3xl font-medium">Similar</h2>
               <div className="grid grid-cols-[auto_auto] flex-wrap gap-4 md:grid-cols-[auto_auto_auto_auto]">
-                {similar.map((similar) => (
-                  <div className="">
-                    <img
-                      className="max-h-[196px] w-full rounded-lg object-cover duration-300 hover:scale-95 hover:cursor-pointer"
-                      onClick={() => seeMovieDetails(similar.id)}
-                      src={`https://image.tmdb.org/t/p/w500/${similar.poster_path}`}
-                      alt={similar.original_title}
-                    />
-                  </div>
+                {similar.map((similar, id) => (
+                  //   <div className="">
+                  //     <img
+                  //       className="max-h-[196px] w-full rounded-lg object-cover duration-300 hover:scale-95 hover:cursor-pointer"
+                  //       onClick={() => seeMovieDetails(similar.id)}
+                  //       src={`https://image.tmdb.org/t/p/w500/${similar.poster_path}`}
+                  //       alt={similar.original_title}
+                  //     />
+                  //   </div>
+                  <SimilarMovies similar={similar} key={id} />
                 ))}
               </div>
             </div>
