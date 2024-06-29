@@ -36,6 +36,14 @@ function Navbar() {
     setSearch(!search);
   };
 
+  const truncateString = (str, num) => {
+    if (str?.length > num) {
+      return str.slice(0, num);
+    } else {
+      return str;
+    }
+  };
+
   return (
     <div className="fixed z-[100] w-full">
       <div className="flex items-center justify-between bg-black">
@@ -91,7 +99,7 @@ function Navbar() {
                 className="h-9 w-9 items-center rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-xl text-white"
                 onClick={seeProfile}
               >
-                <Truncate str={user.email.toUpperCase()} num={1} />
+                {truncateString(user.email.toUpperCase(), 1)}
               </button>
 
               {/* floating acc details */}

@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import requests from "../Requests";
 import axios from "axios";
-import { UserAuth } from "../context/AuthContext";
-import { FaPlay, FaArrowRight } from "react-icons/fa6";
+import { FaArrowRight } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import PlayButton from "./PlayButton";
-import Truncate from "./Truncate";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";

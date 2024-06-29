@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import requests from "../Requests";
 import { useNavigate } from "react-router-dom";
 import Truncate from "../components/Truncate";
+import Footer from "../components/Footer";
 
 function SearchResults() {
   const navigate = useNavigate();
@@ -26,12 +27,21 @@ function SearchResults() {
     navigate(`/movie/${id}`, { state: { id } });
   };
 
+  const truncateString = (str, num) => {
+    if (str?.length > num) {
+      return str.slice(0, num);
+    } else {
+      return str;
+    }
+  };
+
   if (results.length === 0) {
     return (
-      <div className="flex w-full flex-col items-center align-middle text-white">
-        <div className="mt-[350px]">
+      <div className="flex h-screen w-full flex-col items-center text-white">
+        <div className="flex h-full items-center">
           <h1 className="text-4xl font-medium">No results found!</h1>
         </div>
+        <Footer />
       </div>
     );
   } else {
@@ -54,10 +64,10 @@ function SearchResults() {
                     <div className="space-y-2">
                       <h1 className="text-2xl font-medium">{result.title}</h1>
                       <p className="">
-                        <Truncate
-                          str={result.release_date ? result.release_date : "-"}
-                          num={4}
-                        />
+                        {truncateString(
+                          result?.release_date ? result.release_date : "null",
+                          4,
+                        )}
                       </p>
                       <p className="text-sm text-gray-400">
                         {result.overview ? (
@@ -72,6 +82,7 @@ function SearchResults() {
               </div>
             ))}
           </div>
+          <Footer />
         </div>
       </div>
     );

@@ -14,7 +14,7 @@ function Footer() {
         <div className="w-full border-t-[1px] border-gray-700" />
         <div className="flex flex-col justify-between space-y-16 lg:flex-row">
           <div className="mr-16 flex flex-col space-y-8">
-            <h1 className="font-comfortaa cursor-pointer text-3xl font-extrabold text-red-600">
+            <h1 className="font-comfortaa text-3xl font-extrabold text-red-600">
               movies.db
             </h1>
             <p>Connecting the world through entertainment.</p>

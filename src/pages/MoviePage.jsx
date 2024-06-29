@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import requests from "../Requests";
@@ -12,8 +12,9 @@ import {
 import PlayButton from "../components/PlayButton";
 import { UserAuth } from "../context/AuthContext";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
-import AppLogo from "../components/AppLogo";
 import Footer from "../components/Footer";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 function MoviePage() {
   const navigate = useNavigate();
@@ -30,6 +31,8 @@ function MoviePage() {
   const [credits, setCredits] = useState({});
   const [language, setLanguage] = useState([]);
   const [similar, setSimilar] = useState([]);
+  gsap.registerPlugin(useGSAP);
+  const container = useRef(null);
 
   useEffect(() => {
     axios
@@ -96,13 +99,19 @@ function MoviePage() {
     }
   };
 
+  useGSAP(() => {
+    const tl = gsap.timeline({ defaults: { ease: "power2.inOut" } });
+
+    tl.fromTo(".hero__image", { x: -30 }, { x: 0, opacity: 1, duration: 1 });
+  });
+
   return (
-    <div className="relative w-full text-white">
+    <div className="relative w-full text-white" ref={container}>
       {/* movie?.title is for optional chanining */}
 
       <div className="absolute h-full w-full">
         <img
-          className="relative left-0 right-0 mx-auto flex h-[250px] w-full flex-auto object-cover lg:h-[750px] lg:max-w-[1400px]"
+          className="hero__image relative left-0 right-0 mx-auto flex h-[250px] w-full flex-auto object-cover opacity-0 lg:h-[750px] lg:max-w-[1400px]"
           src={`https://image.tmdb.org/t/p/original/${movieDetails?.backdrop_path}`}
           alt={movieDetails?.title}
         ></img>
