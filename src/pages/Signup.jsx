@@ -20,21 +20,21 @@ function Signup() {
   };
 
   return (
-    <div className="w-full ">
+    <div className="w-full">
       <img
-        className="absolute w-full h-full object-cover"
+        className="absolute h-full w-full object-cover"
         src="https://assets.nflxext.com/ffe/siteui/vlv3/cacfadb7-c017-4318-85e4-7f46da1cae88/0348003b-a20e-4593-8073-44780e42a402/SG-en-20240603-popsignuptwoweeks-perspective_alpha_website_large.jpg"
       />
-      <div className="bg-black/60 fixed top-0 left-0 w-full h-screen"></div>
-      <div className="fixed w-full px-4 py-24 z-50">
-        <div className="max-w-[450px] h-[600px] mx-auto bg-black/75 text-white">
-          <div className="max-w-[320px] mx-auto py-16">
+      <div className="fixed left-0 top-0 h-screen w-full bg-black/60"></div>
+      <div className="fixed z-50 w-full px-4 py-24">
+        <div className="mx-auto h-[600px] max-w-[450px] bg-black/75 text-white">
+          <div className="mx-auto max-w-[320px] py-16">
             <h1 className="text-3xl font-medium">Sign Up</h1>
 
-            <form onSubmit={handleSubmit} className="w-full flex flex-col py-4">
+            <form onSubmit={handleSubmit} className="flex w-full flex-col py-4">
               <input
                 onChange={(e) => setEmail(e.target.value)}
-                className="p-3 my-2 bg-gray-700 rounded"
+                className="my-2 rounded bg-gray-700 p-3"
                 type="email"
                 placeholder="Email"
                 autoComplete="email"
@@ -42,17 +42,17 @@ function Signup() {
 
               <input
                 onChange={(e) => setPassword(e.target.value)}
-                className="p-3 my-2 bg-gray-700 rounded"
+                className="my-2 rounded bg-gray-700 p-3"
                 type="password"
                 placeholder="Password"
                 autoComplete="current-password"
               />
 
-              <button className="bg-red-600 py-3 my-6 rounded font-medium">
+              <button className="my-6 rounded bg-red-600 py-3 font-medium">
                 Sign Up
               </button>
 
-              <div className="flex justify-between items-center text-sm text-gray-400">
+              <div className="flex items-center justify-between text-sm text-gray-400">
                 <p>
                   <input type="checkbox" className="mr-2" />
                   Remember Me
@@ -63,7 +63,7 @@ function Signup() {
               <div>
                 <p className="py-8">
                   <span className="text-gray-400">
-                    Already subscribed to Netflix?
+                    Already subscribed to movie.db?
                   </span>
                   {"  "}
                   <Link to="/login">Sign In</Link>

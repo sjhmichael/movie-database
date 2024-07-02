@@ -62,7 +62,7 @@ function Login() {
               </div>
               <div>
                 <p className="py-8">
-                  <span className="text-gray-400">New to Netflix?</span>
+                  <span className="text-gray-400">New to movie.db?</span>
                   {"  "}
                   <Link to="/signup">Sign Up</Link>
                 </p>

@@ -8,8 +8,6 @@ function SimilarMovies({ similar }) {
     navigate(`/movie/${id}`, { state: { id } });
   };
 
-  console.log("similar", similar);
-
   return (
     <div className="relative">
       <div
