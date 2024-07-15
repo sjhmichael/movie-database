@@ -21,8 +21,6 @@ function SearchResults() {
       .then((response) => setResults(response.data.results));
   }, [query]);
 
-  console.log("results", results);
-
   const seeMovieDetails = (id) => {
     navigate(`/movie/${id}`, { state: { id } });
   };
