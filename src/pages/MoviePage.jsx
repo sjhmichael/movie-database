@@ -162,7 +162,7 @@ function MoviePage() {
       <div className="absolute top-[250px] z-20 h-full w-full p-4 md:p-8">
         <div className="relative left-0 right-0 mx-auto max-w-[1400px]">
           {/* Overview section */}
-          <div className="min-h-[250ox] lg:h-[260px]">
+          <div className="min-h-[250px] lg:h-[260px]">
             <div className="hero__overview opacity-0">
               <h1 className="my-8 text-3xl font-medium md:text-5xl">
                 {movieDetails.title}
